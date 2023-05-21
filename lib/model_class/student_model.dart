@@ -5,16 +5,19 @@ class StudentModel {
   String email;
   String password;
   String phoneNumber;
+  String uid;
 
   StudentModel({
     required this.name,
     required this.email,
     required this.password,
     required this.phoneNumber,
+    required this.uid
   });
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic> {
+      'uid' : uid,
       'name' : name,
       'email' : email,
       'phoneNumber' : email,

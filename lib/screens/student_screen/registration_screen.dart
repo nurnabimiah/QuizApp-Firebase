@@ -1,8 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+import 'package:quizapp_project/model_class/student_model.dart';
+import 'package:quizapp_project/provider/student_signup_provider.dart';
 import 'package:quizapp_project/screens/student_screen/login_screen.dart';
 
+import '../../auth/auth_services.dart';
 import '../../widgets/text_formfiled_inputdecoration.dart';
 import '../const_file/app_textstyle.dart';
 
@@ -15,15 +20,22 @@ class StudentRegistrationScreen extends StatefulWidget {
 
 class _StudentRegistrationScreenState extends State<StudentRegistrationScreen> {
 
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _phnController = TextEditingController();
-  final _formkey = GlobalKey<FormState>();
+   final _emailController = TextEditingController();
+   final _passwordController = TextEditingController();
+   final  _nameController = TextEditingController();
+   final _phnController = TextEditingController();
+   final _formkey = GlobalKey<FormState>();
+   String _errMsg = '';
 
 
-
-
+  bool isLogin = false;
+   @override
+  void dispose() {
+    _emailController.dispose();
+    _nameController.dispose();
+    _passwordController.dispose();
+    _phnController.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -62,7 +74,7 @@ class _StudentRegistrationScreenState extends State<StudentRegistrationScreen> {
                     ),
                     SizedBox(height: 15.h,),
                     TextFormField(
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.name,
                       controller: _nameController,
                       validator: (value) {
                         if(value == null || value.isEmpty) {
@@ -98,6 +110,7 @@ class _StudentRegistrationScreenState extends State<StudentRegistrationScreen> {
                     SizedBox(height: 15.h,),
 
                     TextFormField(
+                      keyboardType: TextInputType.text,
                       controller: _passwordController,
                       validator: (value) {
                         if(value == null || value.isEmpty) {
@@ -120,7 +133,15 @@ class _StudentRegistrationScreenState extends State<StudentRegistrationScreen> {
 
 
 
-                    ElevatedButton(onPressed: () {}, child: Text('Sign Up')),
+                    ElevatedButton(onPressed: () {
+
+                     signUp();
+
+
+
+
+
+                    }, child: Text('Sign Up')),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -143,4 +164,42 @@ class _StudentRegistrationScreenState extends State<StudentRegistrationScreen> {
           )),
     );
   }
+
+   signUp() async {
+     if (_formkey.currentState!.validate()) {
+       User? user;
+       try{
+        user = await AuthServices.registerUser(
+            _emailController.text,
+            _passwordController.text
+        );
+        
+        if(user!=null){
+          final studentModel = StudentModel(
+              name: _nameController.text, 
+              email: _emailController.text, 
+              password: _passwordController.text, 
+              phoneNumber: _phnController.text,
+              uid: user.uid);
+          
+          
+         Provider.of<StudentSignUpProvider>(context,listen: false).addStudents(studentModel).then((value) => {
+           Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentLoginScreen()))
+         });
+          
+          
+          
+        }
+
+       } on FirebaseAuthException catch(error){
+         setState(() {
+           _errMsg = error.message!;
+
+         });
+       }
+     }
+   }
+
+
+
 }
