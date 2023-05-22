@@ -2,10 +2,12 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quizapp_project/model_class/student_model.dart';
+import 'package:quizapp_project/model_class/teacher_model.dart';
 
 class DBHelper{
   
   static const _collectionStudents = 'students';
+  static const _collectionTeacher = 'teachers';
   static final FirebaseFirestore _db = FirebaseFirestore.instance;
 
 
@@ -24,8 +26,16 @@ class DBHelper{
     return _db.collection(_collectionStudents).doc(studentModel.uid).set(studentModel.toMap());
     
   }
-  
-  
+
+
+
+  static Future<void> addNewTeacher(TeacherModelClass teacherModelClass){
+    return _db.collection(_collectionTeacher).doc(teacherModelClass.uid).set(teacherModelClass.toMap());
+
+  }
+
+
+
   
   
 }

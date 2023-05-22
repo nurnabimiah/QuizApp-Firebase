@@ -2,21 +2,24 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-import 'package:quizapp_project/auth/auth_services.dart';
-import 'package:quizapp_project/screens/const_file/app_textstyle.dart';
-import 'package:quizapp_project/screens/student_screen/quiz_list_screen.dart';
-import 'package:quizapp_project/screens/student_screen/registration_screen.dart';
+import 'package:quizapp_project/screens/student_screen/login_screen.dart';
+import 'package:quizapp_project/screens/teacher_screen/teacher_registration_screen.dart';
 
+import '../../auth/auth_services.dart';
 import '../../widgets/text_formfiled_inputdecoration.dart';
+import '../const_file/app_textstyle.dart';
+import 'create_quiz_screen.dart';
 
-class StudentLoginScreen extends StatefulWidget {
-  const StudentLoginScreen({Key? key}) : super(key: key);
+class TeacherLoginScreen extends StatefulWidget {
+  const TeacherLoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<StudentLoginScreen> createState() => _StudentLoginScreenState();
+  State<TeacherLoginScreen> createState() => _TeacherLoginScreenState();
 }
 
-class _StudentLoginScreenState extends State<StudentLoginScreen> {
+class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
+
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
@@ -28,6 +31,8 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
     _passwordController.dispose();
     super.dispose();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +49,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                     Lottie.asset('images/animations/student_login.json',
                         height: 200.h, width: double.infinity),
                     Text(
-                      'Student Login',
+                      'Teacher Login',
                       style: studentLoginPgeHeaderTextStyle(),
                     ),
                     SizedBox(
@@ -88,7 +93,8 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                     ),
                     ElevatedButton(
                         onPressed: () {
-                         _loginStudents();
+                          _loginTeacher();
+
                         },
                         child: Text('Login')),
                     Row(
@@ -107,7 +113,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          StudentRegistrationScreen()));
+                                        TeacherRegistrationScreen()));
                             },
                             child: Text(
                               'Sign Up',
@@ -125,16 +131,17 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
     );
   }
 
-  void _loginStudents() async{
+
+  void _loginTeacher() async{
     if(_formkey.currentState!.validate()){
       try{
-        User? user = await AuthServices.loginAdStudent(
+        User? user = await AuthServices.loginTeacher(
           _emailController.text,
           _passwordController.text,
         );
 
         if(user!=null){
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>QuizListScreen()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>StudentLoginScreen()));
         }
         else{
           setState(() {
@@ -150,4 +157,5 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
 
     }
   }
+
 }

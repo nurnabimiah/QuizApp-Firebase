@@ -11,7 +11,8 @@ class QuizModel {
     required this.questionNumber,
     required this.question,
     required this.options,
-    required this.answer});
+    required this.answer}
+      );
 
   factory QuizModel.fromJson(Map<String, dynamic> json) {
     return QuizModel(

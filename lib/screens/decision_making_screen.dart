@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:quizapp_project/screens/const_file/app_textstyle.dart';
 import 'package:quizapp_project/screens/student_screen/login_screen.dart';
+import 'package:quizapp_project/screens/teacher_screen/teacher_login_screen.dart';
 
 import 'const_file/app_all_color.dart';
 
@@ -45,7 +46,9 @@ class _DecisionMakingScreenState extends State<DecisionMakingScreen> {
                           ElevatedButton(onPressed: (){
                             Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentLoginScreen()));
                           }, child: Text('Student')),
-                          ElevatedButton(onPressed: (){}, child: Text('Teacher')),
+                          ElevatedButton(onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>TeacherLoginScreen()));
+                          }, child: Text('Teacher')),
                         ],
                       ),
                     )
