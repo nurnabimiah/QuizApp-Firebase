@@ -19,13 +19,11 @@ class QuizProvider extends ChangeNotifier{
   }
 
 
-  void getAllSubjectsName(){
+   getAllSubjectsName(){
     DBHelper.getSubjects().listen((snapshot) {
-      /* print("0 ...............................................}");
-      print("-1 ...............................................${snapshot.docs[0]}");*/
+
       subjectList = List.generate(snapshot.docs.length, (index) =>
       snapshot.docs[index].data()['subjectName']);
-      //print("1.........................}");
       notifyListeners();
 
     });

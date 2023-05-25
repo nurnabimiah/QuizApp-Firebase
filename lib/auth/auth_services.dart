@@ -13,6 +13,12 @@ class AuthServices{
 
 
 
+  static Future <void> logOutStudents(){
+
+    return _auth.signOut();
+  }
+
+
   static Future<User?> loginAdStudent(String email, String pass) async{
     final credential =  await _auth.signInWithEmailAndPassword(email: email, password: pass);
     return credential.user;

@@ -9,6 +9,7 @@ import 'package:quizapp_project/provider/student_signup_provider.dart';
 import 'package:quizapp_project/provider/teacher_signup_provider.dart';
 import 'package:quizapp_project/screens/files/quiz_list.dart';
 import 'package:quizapp_project/screens/splash_screen.dart';
+import 'package:quizapp_project/screens/student_screen/student_quiz_list_screen.dart';
 import 'package:quizapp_project/screens/subject_wise_list/bangla_quiz_list.dart';
 import 'package:quizapp_project/screens/teacher_screen/create_quiz_screen.dart';
 import 'package:quizapp_project/screens/teacher_screen/quiz_list_teacher.dart';
@@ -21,7 +22,7 @@ void main()async  {
       providers: [
           ChangeNotifierProvider(create: (context) => StudentSignUpProvider()),
           ChangeNotifierProvider(create: (context) => TeacherSignUpProvider()),
-          ChangeNotifierProvider(create: (context) => QuizProvider()..getALlQuestions()),
+          ChangeNotifierProvider(create: (context) => QuizProvider()..getALlQuestions()..getAllSubjectsName()),
       ],
       child: const MyApp()));
 }

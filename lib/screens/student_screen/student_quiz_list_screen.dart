@@ -1,36 +1,29 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-
-import 'package:quizapp_project/screens/subject_wise_list/bangla_quiz_list.dart';
-import 'package:quizapp_project/screens/subject_wise_list/english_quiz_list.dart';
-import 'package:quizapp_project/screens/subject_wise_list/math_quiz_list.dart';
-import 'package:quizapp_project/screens/teacher_screen/create_quiz_screen.dart';
-import 'package:quizapp_project/widgets/my_drawer.dart';
+import 'package:quizapp_project/screens/student_screen/student_subwise_list/student_bangla_quiz.dart';
+import 'package:quizapp_project/screens/student_screen/student_subwise_list/student_english_quiz.dart';
+import 'package:quizapp_project/screens/student_screen/student_subwise_list/student_math_quiz.dart';
 
 import '../../const_file/app_all_color.dart';
+import '../../widgets/my_drawer.dart';
 
 
-
-class TeacherQuizListScreen extends StatefulWidget {
-  const TeacherQuizListScreen({Key? key}) : super(key: key);
+class StudentQuizListScreen extends StatefulWidget {
+  const StudentQuizListScreen({Key? key}) : super(key: key);
 
   @override
-  State<TeacherQuizListScreen> createState() => _TeacherQuizListScreenState();
+  State<StudentQuizListScreen> createState() => _StudentQuizListScreenState();
 }
 
-class _TeacherQuizListScreenState extends State<TeacherQuizListScreen> {
+class _StudentQuizListScreenState extends State<StudentQuizListScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-
-
-       drawer: MainDrawer2(),
-        floatingActionButton: ElevatedButton(onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateQuizpage()));
-        }, child: Text('Create Quiz'),),
-
+        drawer: MainDrawer(),
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
@@ -65,10 +58,10 @@ class _TeacherQuizListScreenState extends State<TeacherQuizListScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          Text('Bangla', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp, color: Colors.black,),),
+                          Text('Bangla', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15.sp, color: Colors.black,),),
                           Expanded(child: TextButton( onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>BanglaQuizList()));
-                          }, child: Text('Start Quiz',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold,color: Colors.red))))
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>BanglaQuizList1()));
+                          }, child: Text('Start Quiz',style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.bold,color: Colors.red))))
                         ],
                       ),
                     )
@@ -94,10 +87,10 @@ class _TeacherQuizListScreenState extends State<TeacherQuizListScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          Text('English', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp, color: Colors.black,),),
+                          Text('English', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15.sp, color: Colors.black,),),
                           Expanded(child: TextButton( onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>EnglishQuizList()));
-                          }, child: Text('Start Quiz',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold,color: Colors.red))))
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>EnglishQuizList1()));
+                          }, child: Text('Start Quiz',style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.bold,color: Colors.red))))
                         ],
                       ),
                     )
@@ -123,10 +116,10 @@ class _TeacherQuizListScreenState extends State<TeacherQuizListScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          Text('Math', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp, color: Colors.black,),),
+                          Text('Math', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15.sp, color: Colors.black,),),
                           Expanded(child: TextButton( onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>MathQuizList()));
-                          }, child: Text('Start Quiz',style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold,color: Colors.red))))
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>MathQuizList1()));
+                          }, child: Text('Start Quiz',style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.bold,color: Colors.red))))
                         ],
                       ),
                     )
@@ -142,3 +135,5 @@ class _TeacherQuizListScreenState extends State<TeacherQuizListScreen> {
     );
   }
 }
+
+

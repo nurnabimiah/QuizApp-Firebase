@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:quizapp_project/auth/auth_services.dart';
-import 'package:quizapp_project/screens/const_file/app_textstyle.dart';
-import 'package:quizapp_project/screens/student_screen/quiz_list_screen.dart';
+
+import 'package:quizapp_project/screens/student_screen/student_quiz_list_screen.dart';
 import 'package:quizapp_project/screens/student_screen/registration_screen.dart';
 
+import '../../const_file/app_textstyle.dart';
 import '../../widgets/text_formfiled_inputdecoration.dart';
 
 class StudentLoginScreen extends StatefulWidget {
@@ -134,7 +135,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
         );
 
         if(user!=null){
-         // Navigator.push(context,MaterialPageRoute(builder: (context)=>QuizListScreen()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>StudentQuizListScreen()));
         }
         else{
           setState(() {

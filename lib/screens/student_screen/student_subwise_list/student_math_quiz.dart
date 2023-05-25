@@ -1,26 +1,27 @@
 
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../const_file/app_textstyle.dart';
-import '../../model_class/quiz_model_class.dart';
-import '../../widgets/my_drawer.dart';
+import '../../../const_file/app_textstyle.dart';
+import '../../../model_class/quiz_model_class.dart';
+import '../../../widgets/my_drawer.dart';
 
-import '../scoreboard_screen.dart';
-import '../teacher_screen/create_quiz_screen.dart';
+import '../../scoreboard_screen.dart';
+import '../../subject_wise_list/bangla_quiz_list.dart';
 
-class EnglishQuizList extends StatefulWidget {
-  const EnglishQuizList({Key? key}) : super(key: key);
+
+
+class MathQuizList1 extends StatefulWidget {
+  const MathQuizList1({Key? key}) : super(key: key);
 
   @override
-  State<EnglishQuizList> createState() => _EnglishQuizListState();
+  State<MathQuizList1> createState() => _MathQuizList1State();
 }
 
-class _EnglishQuizListState extends State<EnglishQuizList> {
-
-  List<QuizModel> englisquizList = [];
+class _MathQuizList1State extends State<MathQuizList1> {
+  List<QuizModel> mathquizList = [];
 
   @override
   void initState() {
@@ -29,10 +30,10 @@ class _EnglishQuizListState extends State<EnglishQuizList> {
   }
 
   Future<void> fetchQuizData() async {
-    List<QuizModel> fetchedQuizList = await QuizDataProvider.fetchQuizData('english');
+    List<QuizModel> fetchedQuizList = await QuizDataProvider.fetchQuizData('math');
 
     setState(() {
-      englisquizList = fetchedQuizList;
+      mathquizList = fetchedQuizList;
     });
   }
 
@@ -48,7 +49,7 @@ class _EnglishQuizListState extends State<EnglishQuizList> {
 
   int calculateScore() {
     int score = 0;
-    for (QuizModel quiz in englisquizList) {
+    for (QuizModel quiz in mathquizList) {
       if (quiz.selectedOptionIndex == quiz.answer) {
         score++; // Increment the score if the selected option is the correct answer
       }
@@ -61,15 +62,9 @@ class _EnglishQuizListState extends State<EnglishQuizList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      drawer: MainDrawer2(),
-
-
-      floatingActionButton: ElevatedButton(onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateQuizpage()));
-      }, child: Text('Create Quiz'),),
+      drawer: MainDrawer(),
       appBar: AppBar(
-        title: Text('English',style: TextStyle(fontSize: 14.sp),),
+        title: Text('Math',style: TextStyle(fontSize: 14.sp),),
         actions: [
           TextButton(
             onPressed: submitQuiz,
@@ -77,20 +72,19 @@ class _EnglishQuizListState extends State<EnglishQuizList> {
           ),
         ],
       ),
-      body:englisquizList.isEmpty?Center(child:CircularProgressIndicator() ,): Padding(
+      body:mathquizList.isEmpty?Center(child:CircularProgressIndicator() ,): Padding(
         padding: EdgeInsets.only(left: 14.0.w, right: 14.0.w, top: 30.h),
         child: ListView.separated(
-          itemCount: englisquizList.length,
+          itemCount: mathquizList.length,
           separatorBuilder: (context, index) => SizedBox(height: 8.0),
           itemBuilder: (context, index) {
-            QuizModel quiz = englisquizList[index];
+            QuizModel quiz = mathquizList[index];
             return Container(
               width: double.infinity,
               child: Column(
                 children: [
                   Row(
                     children: [
-
                       Text(
                         quiz.question ?? '',
                         style: quizHeaderTextStyle(15.sp),
@@ -118,31 +112,5 @@ class _EnglishQuizListState extends State<EnglishQuizList> {
         ),
       ),
     );
-  }
-}
-
-
-class QuizDataProvider {
-  static Future<List<QuizModel>> fetchQuizData(String subject) async {
-    List<QuizModel> quizList = [];
-
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-    QuerySnapshot querySnapshot = await firestore
-        .collection('Question')
-        .where('subjects', isEqualTo: subject)
-        .get();
-
-    if (querySnapshot.docs.isNotEmpty) {
-      querySnapshot.docs.forEach((doc) {
-        Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
-        if (data != null) {
-          QuizModel quiz = QuizModel.fromJson(data);
-          quizList.add(quiz);
-        }
-      });
-    }
-
-
-    return quizList;
   }
 }

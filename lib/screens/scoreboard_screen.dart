@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:quizapp_project/screens/const_file/app_textstyle.dart';
+
+import '../const_file/app_textstyle.dart';
+
 
 class ScoreboardScreen extends StatelessWidget {
   final int score;

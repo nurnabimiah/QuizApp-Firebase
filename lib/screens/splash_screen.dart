@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import 'decision_making_screen.dart';
+import 'launcher_screen.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -27,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
   startTimer() {
     Timer(const Duration(seconds: 2), () async {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => DecisionMakingScreen())
+          context, MaterialPageRoute(builder: (context) => LauncherPage())
         // context, MaterialPageRoute(builder: (context) => UserHomeScreen())
       );
     });

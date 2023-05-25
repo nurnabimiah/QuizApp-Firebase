@@ -8,8 +8,9 @@ import 'package:quizapp_project/provider/student_signup_provider.dart';
 import 'package:quizapp_project/screens/student_screen/login_screen.dart';
 
 import '../../auth/auth_services.dart';
+import '../../const_file/app_textstyle.dart';
 import '../../widgets/text_formfiled_inputdecoration.dart';
-import '../const_file/app_textstyle.dart';
+
 
 class StudentRegistrationScreen extends StatefulWidget {
   const StudentRegistrationScreen({Key? key}) : super(key: key);

@@ -34,7 +34,7 @@ appHeaderTextStyle(){
    return TextStyle(
        fontWeight: FontWeight.bold,
        fontSize: fontsize,
-       color: Colors.black,
+       color: Colors.teal,
        letterSpacing: 0.4
 
    );

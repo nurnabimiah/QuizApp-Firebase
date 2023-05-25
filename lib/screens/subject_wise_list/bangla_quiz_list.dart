@@ -2,12 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:quizapp_project/screens/const_file/app_all_color.dart';
-import 'package:quizapp_project/screens/const_file/app_textstyle.dart';
 
+import '../../const_file/app_textstyle.dart';
 import '../../model_class/quiz_model_class.dart';
 
+import '../../widgets/my_drawer.dart';
 import '../scoreboard_screen.dart';
+import '../teacher_screen/create_quiz_screen.dart';
 
 class QuizDataProvider {
   static Future<List<QuizModel>> fetchQuizData(String subject) async {
@@ -84,16 +85,22 @@ class _BanglaQuizListState extends State<BanglaQuizList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      drawer: MainDrawer2(),
+
+        floatingActionButton: ElevatedButton(onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateQuizpage()));
+        }, child: Text('Create Quiz'),),
       appBar: AppBar(
-        title: Text('Bangla'),
+        title: Text('Bangla',style: TextStyle(fontSize: 14.sp),),
         actions: [
           TextButton(
             onPressed: submitQuiz,
-            child: Text('Submit', style: TextStyle(color: Colors.white)),
+            child: Text('Submit', style: TextStyle(color: Colors.white,fontSize: 14.sp)),
           ),
         ],
       ),
-      body: Padding(
+      body:banglaquizList.isEmpty?Center(child:CircularProgressIndicator() ,): Padding(
         padding: EdgeInsets.only(left: 14.0.w, right: 14.0.w, top: 30.h),
         child: ListView.separated(
           itemCount: banglaquizList.length,
@@ -107,11 +114,8 @@ class _BanglaQuizListState extends State<BanglaQuizList> {
                   Row(
                     children: [
                       Text(
-                        'Question : ', style: quizHeaderTextStyle(18.sp)
-                      ),
-                      Text(
                         quiz.question ?? '',
-                        style: quizHeaderTextStyle(18.sp),
+                        style: quizHeaderTextStyle(14.sp),
                       ),
                     ],
                   ),

@@ -2,11 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-import 'package:quizapp_project/screens/const_file/app_textstyle.dart';
+
 import 'package:quizapp_project/screens/student_screen/login_screen.dart';
 import 'package:quizapp_project/screens/teacher_screen/teacher_login_screen.dart';
 
-import 'const_file/app_all_color.dart';
+import '../const_file/app_all_color.dart';
+import '../const_file/app_textstyle.dart';
+
+
 
 class DecisionMakingScreen extends StatefulWidget {
   const DecisionMakingScreen({Key? key}) : super(key: key);
@@ -16,6 +19,10 @@ class DecisionMakingScreen extends StatefulWidget {
 }
 
 class _DecisionMakingScreenState extends State<DecisionMakingScreen> {
+
+
+  
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

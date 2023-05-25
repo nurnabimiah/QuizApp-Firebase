@@ -1,24 +1,27 @@
 
 
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../const_file/app_textstyle.dart';
-import '../../model_class/quiz_model_class.dart';
-import '../../widgets/my_drawer.dart';
+import '../../../const_file/app_textstyle.dart';
+import '../../../model_class/quiz_model_class.dart';
+import '../../../widgets/my_drawer.dart';
 
-import '../scoreboard_screen.dart';
-import '../teacher_screen/create_quiz_screen.dart';
+import '../../scoreboard_screen.dart';
+import '../../subject_wise_list/bangla_quiz_list.dart';
+import '../../teacher_screen/create_quiz_screen.dart';
 
-class EnglishQuizList extends StatefulWidget {
-  const EnglishQuizList({Key? key}) : super(key: key);
+class EnglishQuizList1 extends StatefulWidget {
+  const EnglishQuizList1({Key? key}) : super(key: key);
 
   @override
-  State<EnglishQuizList> createState() => _EnglishQuizListState();
+  State<EnglishQuizList1> createState() => _EnglishQuizList1State();
 }
 
-class _EnglishQuizListState extends State<EnglishQuizList> {
+class _EnglishQuizList1State extends State<EnglishQuizList1> {
 
   List<QuizModel> englisquizList = [];
 
@@ -61,13 +64,7 @@ class _EnglishQuizListState extends State<EnglishQuizList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      drawer: MainDrawer2(),
-
-
-      floatingActionButton: ElevatedButton(onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateQuizpage()));
-      }, child: Text('Create Quiz'),),
+      drawer: MainDrawer(),
       appBar: AppBar(
         title: Text('English',style: TextStyle(fontSize: 14.sp),),
         actions: [
@@ -122,27 +119,3 @@ class _EnglishQuizListState extends State<EnglishQuizList> {
 }
 
 
-class QuizDataProvider {
-  static Future<List<QuizModel>> fetchQuizData(String subject) async {
-    List<QuizModel> quizList = [];
-
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-    QuerySnapshot querySnapshot = await firestore
-        .collection('Question')
-        .where('subjects', isEqualTo: subject)
-        .get();
-
-    if (querySnapshot.docs.isNotEmpty) {
-      querySnapshot.docs.forEach((doc) {
-        Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
-        if (data != null) {
-          QuizModel quiz = QuizModel.fromJson(data);
-          quizList.add(quiz);
-        }
-      });
-    }
-
-
-    return quizList;
-  }
-}

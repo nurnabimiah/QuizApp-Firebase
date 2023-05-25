@@ -1,3 +1,4 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,10 +8,10 @@ import 'package:quizapp_project/provider/teacher_signup_provider.dart';
 import 'package:quizapp_project/screens/student_screen/login_screen.dart';
 import 'package:quizapp_project/screens/teacher_screen/quiz_list_teacher.dart';
 import 'package:quizapp_project/screens/teacher_screen/teacher_registration_screen.dart';
-
 import '../../auth/auth_services.dart';
+import '../../const_file/app_textstyle.dart';
 import '../../widgets/text_formfiled_inputdecoration.dart';
-import '../const_file/app_textstyle.dart';
+
 import 'create_quiz_screen.dart';
 
 class TeacherLoginScreen extends StatefulWidget {
@@ -28,23 +29,6 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
 
   late TeacherSignUpProvider _teacherSignUpProvider;
 
-
-
-
-  @override
-  void initState() {
-    Future.delayed(Duration.zero, () {
-      if(AuthServices.currentUser == null ) {
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>TeacherLoginScreen()));
-      }else {
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>TeacherQuizListScreen()));
-      }
-    });
-    super.initState();
-  }
-
-
-
   @override
   void didChangeDependencies() {
     _teacherSignUpProvider = Provider.of<TeacherSignUpProvider>(context, listen: false);
@@ -60,86 +44,104 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(left: 20.0, right: 20.w, top: 40),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  Lottie.asset('images/animations/student_login.json', height: 200.h, width: double.infinity),
-                  Text(
-                    'Teacher Login',
-                    style: studentLoginPgeHeaderTextStyle(),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(left: 20.0, right: 20.w, top: 40),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Lottie.asset(
+                  'images/animations/student_login.json',
+                  height: 200.h,
+                  width: double.infinity,
+                ),
+                Text(
+                  'Teacher Login',
+                  style: studentLoginPgeHeaderTextStyle(),
+                ),
+                SizedBox(
+                  height: 30.h,
+                ),
+                TextFormField(
+                  controller: _emailController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'This field must not be empty';
+                    }
+                    return null;
+                  },
+                  style: TextStyle(color: Colors.black),
+                  decoration: textFormfiledInputeDecoration(
+                    'email',
+                    prefixIcon: Icon(Icons.email, color: Colors.black),
                   ),
-                  SizedBox(
-                    height: 30.h,
+                ),
+                SizedBox(
+                  height: 15.h,
+                ),
+                TextFormField(
+                  controller: _passwordController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'This field must not be empty';
+                    }
+                    return null;
+                  },
+                  style: TextStyle(color: Colors.black),
+                  decoration: textFormfiledInputeDecoration(
+                    'password',
+                    prefixIcon: Icon(Icons.lock, color: Colors.black),
                   ),
-                  TextFormField(
-                    controller: _emailController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'This field must not be empty';
-                      }
-                      return null;
-                    },
-                    style: TextStyle(color: Colors.black),
-                    decoration: textFormfiledInputeDecoration('email', prefixIcon: Icon(Icons.email, color: Colors.black)),
-                  ),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  TextFormField(
-                    controller: _passwordController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'This field must not be empty';
-                      }
-                      return null;
-                    },
-                    style: TextStyle(color: Colors.black),
-                    decoration: textFormfiledInputeDecoration('password', prefixIcon: Icon(Icons.lock, color: Colors.black)),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      _loginTeacher();
-                    },
-                    child: Text('Login'),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Don't Have an Account ?",
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => TeacherRegistrationScreen()),
-                          );
-                        },
-                        child: Text(
-                          'Sign Up',
-                          style: TextStyle(fontSize: 16.sp),
-                        ),
-                      ),
-                    ],
-                  ),
-                  if (_errMsg.isNotEmpty)
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    _loginTeacher();
+                  },
+                  child: Text('Login'),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     Text(
-                      _errMsg,
-                      style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold,fontSize: 18.sp),
+                      "Don't Have an Account ?",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
                     ),
-                ],
-              ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TeacherRegistrationScreen(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Sign Up',
+                        style: TextStyle(fontSize: 16.sp),
+                      ),
+                    ),
+                  ],
+                ),
+                if (_errMsg.isNotEmpty)
+                  Text(
+                    _errMsg,
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.sp,
+                    ),
+                  ),
+              ],
             ),
           ),
         ),
@@ -158,7 +160,10 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
         if (user != null) {
           final status = await _teacherSignUpProvider.cheackTeacher(_emailController.text);
           if (status) {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => TeacherQuizListScreen()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TeacherQuizListScreen()),
+            );
           } else {
             setState(() {
               _errMsg = 'You are not a teacher';

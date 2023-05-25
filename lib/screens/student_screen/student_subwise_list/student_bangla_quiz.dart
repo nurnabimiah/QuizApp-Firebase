@@ -4,23 +4,46 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../const_file/app_textstyle.dart';
-import '../../model_class/quiz_model_class.dart';
-import '../../widgets/my_drawer.dart';
+import '../../../const_file/app_textstyle.dart';
+import '../../../model_class/quiz_model_class.dart';
+import '../../../widgets/my_drawer.dart';
 
-import '../scoreboard_screen.dart';
-import '../teacher_screen/create_quiz_screen.dart';
+import '../../scoreboard_screen.dart';
 
-class EnglishQuizList extends StatefulWidget {
-  const EnglishQuizList({Key? key}) : super(key: key);
+class QuizDataProvider {
+  static Future<List<QuizModel>> fetchQuizData(String subject) async {
+    List<QuizModel> quizList = [];
 
-  @override
-  State<EnglishQuizList> createState() => _EnglishQuizListState();
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    QuerySnapshot querySnapshot = await firestore
+        .collection('Question')
+        .where('subjects', isEqualTo: subject)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      querySnapshot.docs.forEach((doc) {
+        Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
+        if (data != null) {
+          QuizModel quiz = QuizModel.fromJson(data);
+          quizList.add(quiz);
+        }
+      });
+    }
+
+
+    return quizList;
+  }
 }
 
-class _EnglishQuizListState extends State<EnglishQuizList> {
+class BanglaQuizList1 extends StatefulWidget {
+  const BanglaQuizList1({Key? key}) : super(key: key);
 
-  List<QuizModel> englisquizList = [];
+  @override
+  State<BanglaQuizList1> createState() => _BanglaQuizList1State();
+}
+
+class _BanglaQuizList1State extends State<BanglaQuizList1> {
+  List<QuizModel> banglaquizList = [];
 
   @override
   void initState() {
@@ -29,10 +52,10 @@ class _EnglishQuizListState extends State<EnglishQuizList> {
   }
 
   Future<void> fetchQuizData() async {
-    List<QuizModel> fetchedQuizList = await QuizDataProvider.fetchQuizData('english');
+    List<QuizModel> fetchedQuizList = await QuizDataProvider.fetchQuizData('bangla');
 
     setState(() {
-      englisquizList = fetchedQuizList;
+      banglaquizList = fetchedQuizList;
     });
   }
 
@@ -48,7 +71,7 @@ class _EnglishQuizListState extends State<EnglishQuizList> {
 
   int calculateScore() {
     int score = 0;
-    for (QuizModel quiz in englisquizList) {
+    for (QuizModel quiz in banglaquizList) {
       if (quiz.selectedOptionIndex == quiz.answer) {
         score++; // Increment the score if the selected option is the correct answer
       }
@@ -58,42 +81,37 @@ class _EnglishQuizListState extends State<EnglishQuizList> {
 
 
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MainDrawer(),
 
-      drawer: MainDrawer2(),
-
-
-      floatingActionButton: ElevatedButton(onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateQuizpage()));
-      }, child: Text('Create Quiz'),),
       appBar: AppBar(
-        title: Text('English',style: TextStyle(fontSize: 14.sp),),
+        title: Text('Bangla',style: TextStyle(fontSize: 14.sp),),
         actions: [
           TextButton(
             onPressed: submitQuiz,
-            child: Text('Submit', style: TextStyle(color: Colors.white)),
+            child: Text('Submit', style: TextStyle(color: Colors.white,fontSize: 14.sp)),
           ),
         ],
       ),
-      body:englisquizList.isEmpty?Center(child:CircularProgressIndicator() ,): Padding(
+      body:banglaquizList.isEmpty?Center(child:CircularProgressIndicator() ,): Padding(
         padding: EdgeInsets.only(left: 14.0.w, right: 14.0.w, top: 30.h),
         child: ListView.separated(
-          itemCount: englisquizList.length,
+          itemCount: banglaquizList.length,
           separatorBuilder: (context, index) => SizedBox(height: 8.0),
           itemBuilder: (context, index) {
-            QuizModel quiz = englisquizList[index];
+            QuizModel quiz = banglaquizList[index];
             return Container(
               width: double.infinity,
               child: Column(
                 children: [
                   Row(
                     children: [
-
                       Text(
                         quiz.question ?? '',
-                        style: quizHeaderTextStyle(15.sp),
+                        style: quizHeaderTextStyle(14.sp),
                       ),
                     ],
                   ),
@@ -119,30 +137,6 @@ class _EnglishQuizListState extends State<EnglishQuizList> {
       ),
     );
   }
-}
 
 
-class QuizDataProvider {
-  static Future<List<QuizModel>> fetchQuizData(String subject) async {
-    List<QuizModel> quizList = [];
-
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-    QuerySnapshot querySnapshot = await firestore
-        .collection('Question')
-        .where('subjects', isEqualTo: subject)
-        .get();
-
-    if (querySnapshot.docs.isNotEmpty) {
-      querySnapshot.docs.forEach((doc) {
-        Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
-        if (data != null) {
-          QuizModel quiz = QuizModel.fromJson(data);
-          quizList.add(quiz);
-        }
-      });
-    }
-
-
-    return quizList;
-  }
 }

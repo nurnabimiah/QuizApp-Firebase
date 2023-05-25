@@ -290,52 +290,9 @@ class _CreateQuizpageState extends State<CreateQuizpage> {
                     border: OutlineInputBorder(),
                   ),
                 ),
-
-
-
-
-                SizedBox(height: 10.0),
-                DropdownButtonFormField<String>(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                  ),
-                  hint: Text('Select subject'),
-                  value: _selectedSubject,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedSubject = value;
-                    });
-                  },
-                  onSaved: (_) {
-                    quizModel.subjects = _selectedSubject;
-                  },
-                  items: _quizProvider.subjectList.map((cat) {
-                    return DropdownMenuItem(
-                      child: Text(
-                        cat,
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      value: cat,
-                    );
-                  }).toList(),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please select a Subject';
-                    }
-                    return null;
-                  },
-                ),
                 SizedBox(height: 10.0),
 
-
-
-
-
-
-
-
-
-              /*  TextFormField(
+                TextFormField(
                   maxLines: 3,
                   style: TextStyle(color: Colors.black),
                   validator: (value) {
@@ -399,6 +356,38 @@ class _CreateQuizpageState extends State<CreateQuizpage> {
                   },
                   child: Text('Add Option'),
                 ),
+
+                SizedBox(height: 10.0),
+                DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                  ),
+                  hint: Text('Select subject'),
+                  value: _selectedSubject,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedSubject = value;
+                    });
+                  },
+                  onSaved: (_) {
+                    quizModel.subjects = _selectedSubject;
+                  },
+                  items: _quizProvider.subjectList.map((cat) {
+                    return DropdownMenuItem(
+                      child: Text(
+                        cat,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      value: cat,
+                    );
+                  }).toList(),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please select a Subject';
+                    }
+                    return null;
+                  },
+                ),
                 SizedBox(height: 10.0),
                 TextFormField(
                   keyboardType: TextInputType.number,
@@ -416,7 +405,7 @@ class _CreateQuizpageState extends State<CreateQuizpage> {
                     labelText: 'Question Answer',
                     border: OutlineInputBorder(),
                   ),
-                ),*/
+                ),
               ],
             ),
           ),
