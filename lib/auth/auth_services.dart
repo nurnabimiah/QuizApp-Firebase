@@ -76,10 +76,16 @@ class AuthServices{
   }
 
 
+  static Future <void> logOutTeacher(){
 
-
-
+    return _auth.signOut();
   }
+
+
+
+
+
+}
 
 
 

@@ -134,7 +134,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
         );
 
         if(user!=null){
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>QuizListScreen()));
+         // Navigator.push(context,MaterialPageRoute(builder: (context)=>QuizListScreen()));
         }
         else{
           setState(() {

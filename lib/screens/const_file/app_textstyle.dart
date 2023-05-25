@@ -26,3 +26,16 @@ appHeaderTextStyle(){
 
    );
  }
+
+
+ /// ..quiz page textStyle
+
+ quizHeaderTextStyle(fontsize){
+   return TextStyle(
+       fontWeight: FontWeight.bold,
+       fontSize: fontsize,
+       color: Colors.black,
+       letterSpacing: 0.4
+
+   );
+ }

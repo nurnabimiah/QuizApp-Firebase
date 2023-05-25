@@ -8,7 +8,22 @@ class DBHelper{
   
   static const _collectionStudents = 'students';
   static const _collectionTeacher = 'teachers';
+  static const _collectSubjectList = 'subjects';
+  static const _collectionAllQuestion = 'Question';
+
+
   static final FirebaseFirestore _db = FirebaseFirestore.instance;
+
+
+  //admin cheack
+  static Future <bool> checkTeacher (String email) async{
+    final snapshot = await _db.collection(_collectionTeacher)
+        .where('email',isEqualTo: email)
+        .get();
+    return snapshot.docs.isNotEmpty; // return krbe true
+  }
+
+
 
 
   // cheack students
@@ -34,8 +49,13 @@ class DBHelper{
 
   }
 
+  static Stream<QuerySnapshot<Map<String,dynamic>>> getSubjects() => _db.collection(_collectSubjectList).snapshots();
+
+  // get all quiz
 
 
+  static Stream<QuerySnapshot<Map<String,dynamic>>>
+  fetchAllQuestion() => _db.collection(_collectionAllQuestion).snapshots();
   
   
 }
