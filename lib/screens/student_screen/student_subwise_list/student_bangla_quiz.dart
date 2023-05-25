@@ -109,6 +109,12 @@ class _BanglaQuizList1State extends State<BanglaQuizList1> {
                 children: [
                   Row(
                     children: [
+
+                     CircleAvatar(
+                         radius:10.r ,
+                         child: Text('${index+1}',style: TextStyle(fontSize: 13.sp))),
+                      SizedBox(width: 10.w,),
+
                       Text(
                         quiz.question ?? '',
                         style: quizHeaderTextStyle(14.sp),

@@ -73,7 +73,7 @@ class _MathQuizList1State extends State<MathQuizList1> {
         ],
       ),
       body:mathquizList.isEmpty?Center(child:CircularProgressIndicator() ,): Padding(
-        padding: EdgeInsets.only(left: 14.0.w, right: 14.0.w, top: 30.h),
+        padding: EdgeInsets.only(left: 20.0.w, right: 14.0.w, top: 30.h),
         child: ListView.separated(
           itemCount: mathquizList.length,
           separatorBuilder: (context, index) => SizedBox(height: 8.0),
@@ -85,6 +85,13 @@ class _MathQuizList1State extends State<MathQuizList1> {
                 children: [
                   Row(
                     children: [
+
+                      CircleAvatar(
+                          radius:10.r ,
+                          child: Text('${index+1}',style: TextStyle(fontSize: 13.sp))),
+                      SizedBox(width: 10.w,),
+
+
                       Text(
                         quiz.question ?? '',
                         style: quizHeaderTextStyle(15.sp),
