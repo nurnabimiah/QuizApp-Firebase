@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:quizapp_project/model_class/student_model.dart';
 import 'package:quizapp_project/provider/student_signup_provider.dart';
 import 'package:quizapp_project/screens/student_screen/login_screen.dart';
+import 'package:quizapp_project/screens/student_screen/student_quiz_list_screen.dart';
 
 import '../../auth/auth_services.dart';
 import '../../const_file/app_textstyle.dart';
@@ -185,7 +186,7 @@ class _StudentRegistrationScreenState extends State<StudentRegistrationScreen> {
           
           
          Provider.of<StudentSignUpProvider>(context,listen: false).addStudents(studentModel).then((value) => {
-           Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentLoginScreen()))
+           Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentQuizListScreen()))
          });
           
           
