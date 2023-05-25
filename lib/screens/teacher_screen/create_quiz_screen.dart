@@ -194,6 +194,7 @@ import 'package:quizapp_project/provider/quiz_provider.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quizapp_project/screens/subject_wise_list/bangla_quiz_list.dart';
+import 'package:quizapp_project/screens/teacher_screen/quiz_list_teacher.dart';
 
 class CreateQuizpage extends StatefulWidget {
   const CreateQuizpage({Key? key}) : super(key: key);
@@ -249,7 +250,7 @@ class _CreateQuizpageState extends State<CreateQuizpage> {
       // Navigate to the desired page after submission
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => BanglaQuizList()),
+        MaterialPageRoute(builder: (context) => TeacherQuizListScreen()),
       );
     }
   }

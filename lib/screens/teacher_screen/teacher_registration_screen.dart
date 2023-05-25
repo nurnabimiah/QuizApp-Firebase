@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:quizapp_project/model_class/teacher_model.dart';
 import 'package:quizapp_project/provider/teacher_signup_provider.dart';
+import 'package:quizapp_project/screens/teacher_screen/quiz_list_teacher.dart';
 import 'package:quizapp_project/screens/teacher_screen/teacher_login_screen.dart';
 
 import '../../auth/auth_services.dart';
@@ -186,7 +187,7 @@ class _TeacherRegistrationScreenState extends State<TeacherRegistrationScreen> {
 
 
           Provider.of<TeacherSignUpProvider>(context,listen: false).addTeacher(teacherModel).then((value) => {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>TeacherLoginScreen()))
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>TeacherQuizListScreen()))
           });
 
 
